@@ -1,0 +1,3 @@
+/home/howiedu/fortran_learning/Fortran-Tutorial-CN-main/Cmake编译/build/CMakeFiles/main.dir
+/home/howiedu/fortran_learning/Fortran-Tutorial-CN-main/Cmake编译/build/CMakeFiles/edit_cache.dir
+/home/howiedu/fortran_learning/Fortran-Tutorial-CN-main/Cmake编译/build/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,13 @@
+# executables
+*.exe
+*.out
+
+
+# module files
+*.mod
+
+# object files
+*.o
+
+
+.DS_Store
