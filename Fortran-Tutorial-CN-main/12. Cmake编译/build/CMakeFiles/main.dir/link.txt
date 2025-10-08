@@ -1,1 +1,0 @@
-/usr/bin/f95 -g -Wall CMakeFiles/main.dir/main.f90.o CMakeFiles/main.dir/FINITE_DERIVATIVE.f90.o CMakeFiles/main.dir/FD_SCHEME.f90.o CMakeFiles/main.dir/POISSON_SOLVER.f90.o CMakeFiles/main.dir/ADVECTION_DIFFUSION.f90.o CMakeFiles/main.dir/CONVECTION_DIFFUSION.f90.o -o main 
