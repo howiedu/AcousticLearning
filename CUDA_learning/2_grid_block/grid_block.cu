@@ -1,3 +1,5 @@
+// 这段代码简单描述了不同核和不同线程处理任务的关系
+
 #include <cuda_runtime.h>
 #include <stdio.h>
 int main(int argc,char ** argv)

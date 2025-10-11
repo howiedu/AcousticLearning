@@ -1,0 +1,17 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "cppdbg",
+            "request": "launch",
+            "name": "Debug_Make",
+            "program": "${fileWorkspaceFolder}/build/5_thread_index/thread_index",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}/../build",
+            "preLaunchTask": "Make Build",
+            "miDebuggerPath": "/usr/bin/gdb",
+            "MIMode": "gdb"
+        }
+    ]
+}

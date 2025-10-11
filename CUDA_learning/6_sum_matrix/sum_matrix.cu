@@ -1,3 +1,5 @@
+//矩阵计算
+
 #include <cuda_runtime.h>
 #include <stdio.h>
 #include "freshman.h"
@@ -45,7 +47,7 @@ int main(int argc,char** argv)
   initialData(A_host,nxy);
   initialData(B_host,nxy);
 
-  //cudaMalloc
+  //cudaMalloc GPU开空间
   float *A_dev=NULL;
   float *B_dev=NULL;
   float *C_dev=NULL;
@@ -53,7 +55,7 @@ int main(int argc,char** argv)
   CHECK(cudaMalloc((void**)&B_dev,nBytes));
   CHECK(cudaMalloc((void**)&C_dev,nBytes));
 
-
+  // GPU复制数据
   CHECK(cudaMemcpy(A_dev,A_host,nBytes,cudaMemcpyHostToDevice));
   CHECK(cudaMemcpy(B_dev,B_host,nBytes,cudaMemcpyHostToDevice));
 
@@ -78,6 +80,7 @@ int main(int argc,char** argv)
         grid_0.x,grid_0.y,block_0.x,block_0.y,iElaps);
   CHECK(cudaMemcpy(C_from_gpu,C_dev,nBytes,cudaMemcpyDeviceToHost));
   checkResult(C_host,C_from_gpu,nxy);
+
   // 1d block and 1d grid
   dimx=32;
   dim3 block_1(dimx);
@@ -90,6 +93,7 @@ int main(int argc,char** argv)
         grid_1.x,grid_1.y,block_1.x,block_1.y,iElaps);
   CHECK(cudaMemcpy(C_from_gpu,C_dev,nBytes,cudaMemcpyDeviceToHost));
   checkResult(C_host,C_from_gpu,nxy);
+  
   // 2d block and 1d grid
   dimx=32;
   dim3 block_2(dimx);

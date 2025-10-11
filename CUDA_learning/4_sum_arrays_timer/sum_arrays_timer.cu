@@ -1,8 +1,7 @@
+// 与上一个代码基本一致，显示计算时间
 #include <cuda_runtime.h>
 #include <stdio.h>
 #include "freshman.h"
-
-
 
 void sumArrays(float * a,float * b,float * res,const int size)
 {
@@ -46,20 +45,31 @@ int main(int argc,char **argv)
   CHECK(cudaMemcpy(a_d,a_h,nByte,cudaMemcpyHostToDevice));
   CHECK(cudaMemcpy(b_d,b_h,nByte,cudaMemcpyHostToDevice));
 
-  dim3 block(512);
+  dim3 block(256);
   dim3 grid((nElem-1)/block.x+1);
 
   //timer
   double iStart,iElaps;
-  iStart=cpuSecond();
-  sumArraysGPU<<<grid,block>>>(a_d,b_d,res_d,nElem);
-  
-  
-
-  CHECK(cudaMemcpy(res_from_gpu_h,res_d,nByte,cudaMemcpyDeviceToHost));
-  iElaps=cpuSecond()-iStart;
-  printf("Execution configuration<<<%d,%d>>> Time elapsed %f sec\n",grid.x,block.x,iElaps);
+  printf("Execution Configure<<<%d,%d>>>\n",grid.x,block.x);
+  // 计算GPU耗时
+  // =================================================================
+  // 只计时核函数执行
+  iStart = cpuSecond();
+  sumArraysGPU<<<grid, block>>>(a_d, b_d, res_d, nElem);
+  CHECK(cudaDeviceSynchronize()); // 等待GPU完成
+  iElaps = cpuSecond() - iStart;
+  printf("GPU Compute Time: %f sec\n", iElaps);
+  // 单独计时数据传输
+  iStart = cpuSecond();
+  CHECK(cudaMemcpy(res_from_gpu_h, res_d, nByte, cudaMemcpyDeviceToHost));
+  iElaps = cpuSecond() - iStart;
+  printf("Data Transfer Time: %f sec\n", iElaps);
+  // =================================================================
+  // 计算CPU耗时
+  iStart = cpuSecond();
   sumArrays(a_h,b_h,res_h,nElem);
+  iElaps = cpuSecond() - iStart;
+  printf("CPU Time elapsed %f sec\n", iElaps);
 
   checkResult(res_h,res_from_gpu_h,nElem);
   cudaFree(a_d);

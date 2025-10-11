@@ -1,7 +1,11 @@
+// 线程块的分化
 #include <cuda_runtime.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "freshman.h"
+
+// ====================================================
+// warmup部分是提前启动一次GPU，因为第一次启动GPU时会比第二次速度慢一些，具体原因未知
 __global__ void warmup(float *c)
 {
 	int tid = blockIdx.x* blockDim.x + threadIdx.x;
@@ -20,6 +24,9 @@ __global__ void warmup(float *c)
 	//printf("%d %d %f \n",tid,warpSize,a+b);
 	c[tid] = a + b;
 }
+
+// ====================================================
+// kernel 1: 线程块分化严重,但是这种执行方法编译器会帮我们优化
 __global__ void mathKernel1(float *c)
 {
 	int tid = blockIdx.x* blockDim.x + threadIdx.x;
@@ -36,7 +43,8 @@ __global__ void mathKernel1(float *c)
 	}
 	c[tid] = a + b;
 }
-
+// ====================================================
+// kernel 2: 线程块分化较轻
 __global__ void mathKernel2(float *c)
 {
 	int tid = blockIdx.x* blockDim.x + threadIdx.x;
@@ -52,6 +60,8 @@ __global__ void mathKernel2(float *c)
 	}
 	c[tid] = a + b;
 }
+// ====================================================
+// kernel 3: 线程块无分化，这种情况下编译器不会帮我们优化
 __global__ void mathKernel3(float *c)
 {
 	int tid = blockIdx.x* blockDim.x + threadIdx.x;
