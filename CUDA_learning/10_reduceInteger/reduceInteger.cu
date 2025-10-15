@@ -122,7 +122,7 @@ int main(int argc,char** argv)
 {
 	initDevice(0);
 	
-	bool bResult = false;
+	//bool bResult = false;
 	//initialization
 
 	int size = 1 << 24;

@@ -1,3 +1,5 @@
+// 使用GPU的同时CPU也进行计算
+
 #include <cuda_runtime.h>
 #include <stdio.h>
 #include "freshman.h"

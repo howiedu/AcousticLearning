@@ -1,3 +1,5 @@
+// 使用共享内存进行归约，并比较全局内存归约与共享内存归约之间的性能差距
+// 使用共享内存的快很多
 #include <cuda_runtime.h>
 #include <stdio.h>
 #include "freshman.h"
@@ -202,13 +204,13 @@ int main(int argc,char** argv)
 	printf("	with array size %d  \n", size);
 
 	//execution configuration
-	int blocksize = 1024;
+	int blocksize = 256;
 	if (argc > 1)
 	{
 		blocksize = atoi(argv[1]);
 	}
 	dim3 block(blocksize, 1);
-	dim3 grid((size - 1) / block.x + 1, 1);
+	dim3 grid(448, 1);
 	printf("grid %d block %d \n", grid.x, block.x);
 
 	//allocate host memory

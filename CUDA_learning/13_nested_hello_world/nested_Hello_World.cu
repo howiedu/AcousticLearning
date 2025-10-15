@@ -1,3 +1,5 @@
+// 3.6动态并行
+// 在GPU上嵌套Hello world
 #include <cuda_runtime.h>
 #include <stdio.h>
 __global__ void nesthelloworld(int iSize,int iDepth)

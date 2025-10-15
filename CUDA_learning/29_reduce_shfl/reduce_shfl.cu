@@ -57,7 +57,7 @@ __global__ void reduceGmem(int * g_idata,int * g_odata,unsigned int n)
 {
 	//set thread ID
 	unsigned int tid = threadIdx.x;
-	unsigned int idx = blockDim.x*blockIdx.x+threadIdx.x;
+	//unsigned int idx = blockDim.x*blockIdx.x+threadIdx.x;
 	//boundary check
 	if (tid >= n) return;
 	//convert global data pointer to the
@@ -141,13 +141,13 @@ __global__ void reduceSmem(int * g_idata,int * g_odata,unsigned int n)
 }
 __inline__ __device__ int warpReduce(int localSum)
 {
-    localSum += __shfl_xor(localSum, 16);
-    localSum += __shfl_xor(localSum, 8);
-    localSum += __shfl_xor(localSum, 4);
-    localSum += __shfl_xor(localSum, 2);
-    localSum += __shfl_xor(localSum, 1);
+	localSum += __shfl_xor_sync(0xFFFFFFFF, localSum, 16);
+	localSum += __shfl_xor_sync(0xFFFFFFFF, localSum, 8);
+	localSum += __shfl_xor_sync(0xFFFFFFFF, localSum, 4);
+	localSum += __shfl_xor_sync(0xFFFFFFFF, localSum, 2);
+	localSum += __shfl_xor_sync(0xFFFFFFFF, localSum, 1);
 
-    return localSum;
+	return localSum;
 }
 __global__ void reduceShfl(int * g_idata,int * g_odata,unsigned int n)
 {
@@ -177,7 +177,7 @@ int main(int argc,char** argv)
 {
 	initDevice(0);
 
-	bool bResult = false;
+	//bool bResult = false;
 	//initialization
 
 	int size = 1 << 24;
