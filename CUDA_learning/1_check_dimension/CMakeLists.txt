@@ -1,1 +1,0 @@
-add_executable(check_dimension check_dimension.cu)

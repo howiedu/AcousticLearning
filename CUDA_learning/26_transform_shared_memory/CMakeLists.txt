@@ -1,1 +1,0 @@
-add_executable(transform_shared_memory transform_shared_memory.cu)

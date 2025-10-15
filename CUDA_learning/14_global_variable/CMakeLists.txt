@@ -1,1 +1,0 @@
-add_executable(global_variable global_variable.cu)

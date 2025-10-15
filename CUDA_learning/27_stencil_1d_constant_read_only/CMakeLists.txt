@@ -1,1 +1,0 @@
-add_executable(stencil_1d_constant_read_only stencil_1d_constant_read_only.cu)

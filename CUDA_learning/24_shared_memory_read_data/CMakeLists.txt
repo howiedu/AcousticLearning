@@ -1,1 +1,0 @@
-add_executable(shared_memory_read_data shared_memory_read_data.cu)

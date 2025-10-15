@@ -1,1 +1,0 @@
-add_executable(reduce_integer_shared_memory reduce_integer_shared_memory.cu)
